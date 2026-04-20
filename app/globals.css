@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-warm-bg: #FDFBF7;
+  --color-warm-ink: #2D2926;
+  --color-warm-primary: #BC8A5F;
+  --color-warm-muted: #A8A29E;
+  --color-warm-card: #FFFFFF;
+  --color-warm-border: #EAE2D6;
+  --color-warm-border-light: #F0EAE0;
+  --color-warm-tag: #F9F6F2;
+  --color-warm-pill: #E6B8A2;
+}
+
+@layer base {
+  .serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+}
