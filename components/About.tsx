@@ -2,8 +2,15 @@
 
 import { motion } from 'motion/react';
 import Image from 'next/image';
+import { Instagram } from 'lucide-react';
 
 export default function About() {
+  const instagramMockImages = [
+    'https://picsum.photos/seed/ig1/400/400',
+    'https://picsum.photos/seed/ig2/400/400',
+    'https://picsum.photos/seed/ig3/400/400',
+  ];
+
   return (
     <section id="sobre-nosotras" className="py-24 bg-warm-tag relative border-t border-b border-warm-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,6 +74,32 @@ export default function About() {
                <a href="#contacto" className="inline-block px-[20px] py-[10px] border border-warm-primary text-warm-primary bg-transparent rounded-[4px] text-[13px] font-semibold hover:bg-warm-primary/10 transition-colors" style={{ textDecoration: 'none' }}>
                  Conócenos en persona
                </a>
+            </div>
+
+            <div className="mt-[64px] border-t border-warm-border/60 pt-[32px]">
+              <div className="flex items-center gap-2 mb-[24px]">
+                <Instagram className="w-5 h-5 text-warm-ink" />
+                <h3 className="serif text-[20px] font-medium text-warm-ink">Síguenos en Instagram</h3>
+              </div>
+              <div className="grid grid-cols-3 gap-3 md:gap-4">
+                {instagramMockImages.map((src, index) => (
+                  <a 
+                    key={index} 
+                    href="#instagram"
+                    className="group relative aspect-square rounded-[4px] overflow-hidden bg-warm-bg block"
+                    aria-label="Ver publicación en Instagram"
+                  >
+                    <Image
+                      src={src}
+                      alt={`Publicación de Instagram ${index + 1}`}
+                      fill
+                      referrerPolicy="no-referrer"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                  </a>
+                ))}
+              </div>
             </div>
           </motion.div>
 

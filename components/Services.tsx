@@ -67,7 +67,7 @@ export default function Services() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative aspect-[3/4] rounded-[8px] overflow-hidden cursor-pointer box-border border border-transparent hover:border-warm-primary transition-all duration-300"
+                className="group relative aspect-[3/4] rounded-[8px] overflow-hidden cursor-pointer box-border border-2 border-transparent hover:border-warm-primary hover:shadow-lg hover:shadow-warm-primary/20 transition-all duration-300"
               >
                 <Image
                   src={service.image}
@@ -94,7 +94,7 @@ export default function Services() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: (index + 3) * 0.1 }}
-                className="group relative aspect-[3/4] rounded-[8px] overflow-hidden cursor-pointer box-border border border-transparent hover:border-warm-primary transition-all duration-300"
+                className="group relative aspect-[3/4] rounded-[8px] overflow-hidden cursor-pointer box-border border-2 border-transparent hover:border-warm-primary hover:shadow-lg hover:shadow-warm-primary/20 transition-all duration-300"
               >
                 <Image
                   src={service.image}

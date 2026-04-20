@@ -1,10 +1,27 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { MapPin, Phone, Mail, Clock, Globe } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Globe, Send, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
+import { useState } from 'react';
 
 export default function Location() {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setIsSubmitted(false), 5000);
+    }, 1200);
+  };
+
   return (
     <section id="ubicacion" className="py-24 bg-warm-bg relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,13 +63,84 @@ export default function Location() {
                 </li>
               </ul>
 
-              <div className="flex flex-col sm:flex-row gap-[16px]">
+              <div className="flex flex-col sm:flex-row gap-[16px] mb-8">
                 <a href="tel:+34937121577" className="inline-block px-[20px] py-[10px] bg-warm-primary text-white rounded-[4px] text-[13px] font-semibold hover:bg-warm-primary/90 transition-colors text-center" style={{ textDecoration: 'none' }}>
                   Llamar ahora
                 </a>
                 <a href="https://maps.google.com/?q=Avinguda+Barberà+280,+08203+Sabadell" target="_blank" rel="noopener noreferrer" className="inline-block px-[20px] py-[10px] border border-warm-primary text-warm-primary bg-transparent rounded-[4px] text-[13px] font-semibold hover:bg-warm-primary/10 transition-colors text-center" style={{ textDecoration: 'none' }}>
                   Google Maps
                 </a>
+              </div>
+
+              {/* Form Section */}
+              <div className="border-t border-warm-border/50 pt-8">
+                <h4 className="serif text-[20px] font-medium text-warm-ink mb-6">Envíanos un mensaje</h4>
+                
+                {isSubmitted ? (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-[#E8F5E9] border border-[#C8E6C9] py-4 px-5 rounded-[4px] flex items-start gap-3"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-[#2E7D32] mt-0.5 shrink-0" />
+                    <span className="text-[14px] text-[#1B5E20] leading-[1.5]">
+                      ¡Mensaje enviado con éxito! Nos pondremos en contacto contigo lo antes posible.
+                    </span>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="name" className="text-[12px] font-medium text-warm-ink/80">Nombre</label>
+                        <input
+                          id="name"
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={(e) => setFormData({...formData, name: e.target.value})}
+                          className="bg-white border border-warm-border rounded-[4px] px-3 py-2.5 text-[14px] text-warm-ink outline-none focus:border-warm-primary focus:ring-1 focus:ring-warm-primary transition-all"
+                          placeholder="Tu nombre"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="email" className="text-[12px] font-medium text-warm-ink/80">Email</label>
+                        <input
+                          id="email"
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({...formData, email: e.target.value})}
+                          className="bg-white border border-warm-border rounded-[4px] px-3 py-2.5 text-[14px] text-warm-ink outline-none focus:border-warm-primary focus:ring-1 focus:ring-warm-primary transition-all"
+                          placeholder="tu@email.com"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="message" className="text-[12px] font-medium text-warm-ink/80">Mensaje</label>
+                      <textarea
+                        id="message"
+                        required
+                        rows={3}
+                        value={formData.message}
+                        onChange={(e) => setFormData({...formData, message: e.target.value})}
+                        className="bg-white border border-warm-border rounded-[4px] px-3 py-2.5 text-[14px] text-warm-ink outline-none focus:border-warm-primary focus:ring-1 focus:ring-warm-primary transition-all resize-none"
+                        placeholder="¿En qué podemos ayudarte?"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="mt-2 inline-flex items-center justify-center gap-2 px-[20px] py-[12px] bg-warm-ink text-white rounded-[4px] text-[13px] font-semibold hover:bg-warm-primary transition-colors disabled:opacity-70 disabled:cursor-not-allowed group w-full sm:w-auto"
+                    >
+                      {isSubmitting ? 'Enviando...' : (
+                        <>
+                          Enviar mensaje
+                          <Send className="w-4 h-4 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+                        </>
+                      )}
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           </motion.div>
